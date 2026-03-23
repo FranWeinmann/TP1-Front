@@ -1,0 +1,46 @@
+---
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-white/10 b-[#020617]/70 backdrop-blur-xl">
+
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+
+    <div class="flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/10">
+        <span class="text-green-400 text-lg">🛡️</span>
+      </div>
+
+      <span class="text-white font-semibold text-lg tracking-tight">
+        Password Generator Pro
+      </span>
+    </div>
+
+    <button 
+      id="themeToggle"
+      class="relative w-14 h-8 flex items-center rounded-full bg-slate-800 p-1 transition"
+    >
+      <span 
+        id="circle"
+        class="absolute left-1 flex h-6 w-6 items-center justify-center rounded-full bg-green-500 transition-all duration-300"
+      >
+        🌙
+      </span>
+    </button>
+
+  </div>
+
+  <script>
+    const btn = document.getElementById("themeToggle");
+    const circle = document.getElementById("circle");
+
+    btn?.addEventListener("click", () => {
+      document.body.classList.toggle("bg-white");
+      document.body.classList.toggle("text-black");
+      document.body.classList.toggle("bg-[#020617]");
+      document.body.classList.toggle("text-white");
+
+      circle.classList.toggle("translate-x-6");
+    });
+  </script>
+
+</header>
