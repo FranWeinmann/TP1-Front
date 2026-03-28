@@ -1,1 +1,10 @@
 @import "tailwindcss";
+.text-dark {
+  color: #31343a;
+}
+.bglight{
+    background-color: #f7f9fa;
+}
+.borde{
+    border: 0.1em solid #d2d3d3;
+}
