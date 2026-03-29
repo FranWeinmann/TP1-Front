@@ -5,6 +5,6 @@ El proyecto es un generador de contraseñas, el cuál cuenta con una base de dat
 Para ejecutar este proyecto, abre este link:
 https://tp-1-front.vercel.app/
 O corre en la consola (se abrirá la página automáticamente):
-cd password-generetor-pro
+cd password-generator-pro
 npm install
 npm run dev
