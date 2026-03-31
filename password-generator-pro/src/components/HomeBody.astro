@@ -18,8 +18,36 @@
                     <p class="text-slate-400 text-sm">Create a strong, secure password</p>
                 </div>
             </div>
-            <h2 id="passwordGenerated" class="mb-6 text-lg"></h2>
-            <div class="flex gap-4 flex-wrap">
+            <div class="flex justify-center bg-[#0e111a] w-130 ml-2 rounded-xl border-[0.15em] border-[#181e27]">
+                <h2 id="passwordGenerated" class="mt-3 mb-3 text-lg text-[#dee5ea]"></h2>
+            </div>
+            <div class="grid grid-cols-2 gap-4 w-130">
+                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                    <span class="text-[#cbd5e1] text-sm font-medium">Uppercase (A-Z)</span>
+                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
+                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                    <span class="text-[#cbd5e1] text-sm font-medium">Lowercase (a-z)</span>
+                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
+                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                    <span class="text-[#cbd5e1] text-sm font-medium">Numbers (0-9)</span>
+                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
+                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                    <span class="text-[#cbd5e1] text-sm font-medium">Symbols (!@#)</span>
+                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
+                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ml-8 flex gap-4 flex-wrap">
                 <button id="regenerate" class="hover:bg-[#11151c] flex bg-[#151b24] items-center rounded-xl gap-2 w-37 h-10 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ml-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -27,14 +55,14 @@
                     Regenerate
                 </button>
                 <button id="copy" class="hover:bg-[#11151c] flex bg-[#151b24] items-center rounded-xl gap-2 w-37 h-10 cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="ml-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
                         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
                     </svg>
                     Copy
                 </button>
-                <button id='save' class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <button id='save' class="flex hover:bg-[#008349] items-center bg-[#00ae61] rounded-xl gap-2 w-37 h-10 cursor-pointer text-black">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-9 size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                     Save
@@ -56,8 +84,10 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import * as func from  '../../utils/func.js';
         let USERNAME = '';
+        let passwordGenerated = ">&[W-H}1Ies|1tTl";
         let SAVED = 0;
         let passwordstxt = 'passwords';
         if (SAVED == 1){
@@ -65,5 +95,6 @@
         }
         document.getElementById('userName').textContent=`Welcome Back, ${USERNAME}`;
         document.getElementById('savedTxt').textContent=`${SAVED} ${passwordstxt} saved`;
+        document.getElementById('passwordGenerated').textContent=passwordGenerated;
     </script>
 </section>
