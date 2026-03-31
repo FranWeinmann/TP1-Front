@@ -54,8 +54,8 @@
                     </svg>
                     Regenerate
                 </button>
-                <button id="copy" class="hover:bg-[#11151c] flex bg-[#151b24] items-center rounded-xl gap-2 w-37 h-10 cursor-pointer">
-                    <svg class="ml-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button id="copy" class="hover:bg-[#11151c] justify-center flex bg-[#151b24] items-center rounded-xl gap-2 w-37 h-10 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
                         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
                     </svg>
@@ -93,8 +93,43 @@
         if (SAVED == 1){
             passwordstxt = 'password';
         }
+        const copyBtn = document.getElementById('copy');
+        const passwordEl = document.getElementById('passwordGenerated');
+        try{
+            const pass = func.generatePassword(16, true, true, true, true);
+            passwordEl.textContent=pass;
+        } catch (err){
+            console.log(err);
+        }
         document.getElementById('userName').textContent=`Welcome Back, ${USERNAME}`;
         document.getElementById('savedTxt').textContent=`${SAVED} ${passwordstxt} saved`;
-        document.getElementById('passwordGenerated').textContent=passwordGenerated;
+        document.getElementById('regenerate').addEventListener("click", ()=>{
+            try{
+                const pass = func.generatePassword(16, true, true, true, true);
+                passwordEl.textContent=pass;
+            } catch (err){
+                console.log(err.message);
+            }
+        });
+        copyBtn.addEventListener("click", async () => {
+            const text = passwordEl.textContent;
+            if (!text) return;
+            try {
+                await navigator.clipboard.writeText(text);
+                copyBtn.textContent = "Copied!";
+                setTimeout(() => {
+                    copyBtn.innerHTML = `
+                        <svg class="ml-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect width="14" height="14" x="8" y="8" rx="2"/>
+                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                        </svg>
+                        Copy
+                    `;
+                }, 1500);
+
+            } catch (err) {
+                console.log("Error al copiar:", err);
+            }
+    });
     </script>
 </section>
