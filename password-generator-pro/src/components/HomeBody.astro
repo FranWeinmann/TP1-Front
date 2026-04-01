@@ -19,31 +19,60 @@
                 </div>
             </div>
             <div class="flex justify-center bg-[#0e111a] w-130 ml-2 rounded-xl border-[0.15em] border-[#181e27]">
-                <h2 id="passwordGenerated" class="mt-3 mb-3 text-lg text-[#dee5ea]"></h2>
+                <h2 id="passwordGenerated" class="mt-3 mb-3 text-lg text-[#dee5ea] text-center break-all"></h2>
+            </div>
+            <div class="w-130 mt-3">
+                <div class="w-full h-2 bg-[#1c2330] rounded-full overflow-hidden">
+                    <div id="strengthBar" class="h-full w-0 transition-all duration-500"></div>
+                </div>
+                <p id="strengthText" class="text-sm mt-2 text-[#7d838a]"></p>
+            </div>
+            <div class="password-length-container">
+                <div class="length-header">
+                    <label for="password-length" class="length-label">
+                    Password Length
+                    </label>
+                    <span id="lengthValue" class="length-value">16</span>
+                </div>
+                
+                <input
+                    type="range"
+                    id="lengthSlider"
+                    name="password-length"
+                    min=8
+                    max=64
+                    value=16
+                    class="length-slider"
+                />
+                
+                <div class="length-range">
+                    <span>8</span>
+                    <span>64</span>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-4 w-130">
-                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                <div data-type="uppercase" class="toggle cursor-pointer flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
                     <span class="text-[#cbd5e1] text-sm font-medium">Uppercase (A-Z)</span>
-                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
-                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    <div class="circle w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 transition clickeable">
+                        <div class="bg-black w-4 h-4 rounded-full ml-auto transition-all duration-300 clickeable"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                <div data-type="lowercase" class="toggle flex cursor-pointer items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
                     <span class="text-[#cbd5e1] text-sm font-medium">Lowercase (a-z)</span>
-                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
-                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    <div class="circle w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1">
+                        <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                <div data-type="numbers" class="toggle flex items-center justify-between cursor-pointer bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
                     <span class="text-[#cbd5e1] text-sm font-medium">Numbers (0-9)</span>
-                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
-                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    <div class="circle w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1">
+                        <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
+                <div data-type="symbols" class="toggle flex items-center justify-between cursor-pointer bg-[#0e111a] border border-[#1c2330] rounded-xl px-4 py-3">
                     <span class="text-[#cbd5e1] text-sm font-medium">Symbols (!@#)</span>
-                    <div class="w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1 cursor-pointer">
-                    <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
+                    <div class="circle w-12 h-6 flex items-center bg-[#00b162] rounded-full p-1">
+                        <div class="bg-black w-4 h-4 rounded-full ml-auto"></div>
                     </div>
                 </div>
             </div>
@@ -84,33 +113,29 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
     <script type="module">
         import * as func from  '../../utils/func.js';
         let USERNAME = '';
-        let passwordGenerated = ">&[W-H}1Ies|1tTl";
         let SAVED = 0;
         let passwordstxt = 'passwords';
+        const passwordEl = document.getElementById('passwordGenerated');
+        const slider = document.getElementById("lengthSlider");
+        const value = document.getElementById("lengthValue");
+        const toggles = document.querySelectorAll('.toggle');
+        const copyBtn = document.getElementById('copy');
+        const levelBar = document.getElementById("strengthBar");
+        const levelTxt = document.getElementById("strengthText");
+        let options = {
+            uppercase: true,
+            lowercase: true,
+            numbers: true,
+            symbols: true
+        };
         if (SAVED == 1){
             passwordstxt = 'password';
         }
-        const copyBtn = document.getElementById('copy');
-        const passwordEl = document.getElementById('passwordGenerated');
-        try{
-            const pass = func.generatePassword(16, true, true, true, true);
-            passwordEl.textContent=pass;
-        } catch (err){
-            console.log(err);
-        }
-        document.getElementById('userName').textContent=`Welcome Back, ${USERNAME}`;
-        document.getElementById('savedTxt').textContent=`${SAVED} ${passwordstxt} saved`;
-        document.getElementById('regenerate').addEventListener("click", ()=>{
-            try{
-                const pass = func.generatePassword(16, true, true, true, true);
-                passwordEl.textContent=pass;
-            } catch (err){
-                console.log(err.message);
-            }
-        });
+                
         copyBtn.addEventListener("click", async () => {
             const text = passwordEl.textContent;
             if (!text) return;
@@ -126,10 +151,56 @@
                         Copy
                     `;
                 }, 1500);
-
             } catch (err) {
                 console.log("Error al copiar:", err);
             }
-    });
+        });
+        toggles.forEach(toggle => {
+            toggle?.addEventListener('click', () => {
+                const type = toggle.dataset.type;
+                const circle = toggle.querySelector('.circle div');
+
+                options[type] = !options[type];
+
+                circle.classList.toggle("-translate-x-6");
+                circle.classList.toggle("bg-white");
+                toggle.classList.toggle("bg-[#131822]");
+
+                try {
+                    const pass = func.generatePassword(
+                        value.textContent,
+                        options.uppercase,
+                        options.lowercase,
+                        options.numbers,
+                        options.symbols
+                    );
+                    passwordEl.textContent = pass;
+                    func.checkPassword(pass, levelTxt, levelBar);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        });
+        document.getElementById('regenerate').addEventListener("click", () => {
+            try {
+                const pass = func.generatePassword(
+                    value.textContent,
+                    options.uppercase,
+                    options.lowercase,
+                    options.numbers,
+                    options.symbols
+                );
+                passwordEl.textContent = pass;
+                func.checkPassword(pass, levelTxt, levelBar);
+                func.updateSlider(slider, value, passwordEl, options, levelTxt, levelBar);
+            } catch (err) {
+                console.log(err.message);
+            }
+        });
+        document.getElementById('userName').textContent=`Welcome Back, ${USERNAME}`;
+        document.getElementById('savedTxt').textContent=`${SAVED} ${passwordstxt} saved`;
+        func.checkPassword(passwordEl.textContent, levelTxt, levelBar);
+        func.updateSlider(slider, value, passwordEl, options, levelTxt, levelBar);
+        slider.addEventListener("input", () => { func.updateSlider(slider, value, passwordEl, options, levelTxt, levelBar); });
     </script>
 </section>

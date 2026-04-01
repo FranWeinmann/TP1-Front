@@ -16,3 +16,37 @@ export function generatePassword(length, uppercase, lowercase, numbers, symbols)
 
     return password;
 }
+
+export function checkPassword(password, txt, bar){
+    const result = zxcvbn(password);
+    const levels = [
+        { width: "20%", color: "#ef4444", text: "Muy débil" },
+        { width: "40%", color: "#f97316", text: "Débil" },
+        { width: "60%", color: "#eab308", text: "Normal" },
+        { width: "80%", color: "#22c55e", text: "Fuerte" },
+        { width: "100%", color: "#00b162", text: "Muy fuerte" }
+    ];
+    const level = levels[result.score];
+
+    bar.style.width = level.width;
+    bar.style.backgroundColor = level.color;
+    txt.textContent = level.text;
+}
+
+export function updateSlider(slideBar, barValue, passTxt, options, levelTxt, levelBar){
+    barValue.textContent = slideBar.value;
+    const percent = ((slideBar.value - slideBar.min) / (slideBar.max - slideBar.min)) * 100;
+
+    slideBar.style.background = `
+        linear-gradient(to right, 
+            #10b981 ${percent}%, 
+            #e5e5e5 ${percent}%)
+        `;
+    try {
+        const pass = generatePassword(barValue.textContent, options.uppercase, options.lowercase, options.numbers, options.symbols);
+        passTxt.textContent = pass;
+        checkPassword(pass, levelTxt, levelBar);
+    } catch (err) {
+        console.log(err.message);
+    }
+}
