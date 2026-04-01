@@ -35,6 +35,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
         </svg>
         <input
+          id="inputEmail"
           type="email" 
           placeholder="you@example.com"
           class="w-full rounded-lg border border-slate-800 bg-[#020617] pl-10 pr-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -72,7 +73,7 @@
         </div>
       </div>
 
-      <button onclick="window.location.href='home'" class="w-full bg-green-500 hover:bg-green-600 transition-all duration-300 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:scale-[1.02]">
+      <button id="signBtn" class="w-full bg-green-500 hover:bg-green-600 transition-all duration-300 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:scale-[1.02]">
         Sign in →
       </button>
 
@@ -85,9 +86,11 @@
 
   </div>
 
-  <script>
+  <script type="module">
+    import * as func from  '../../utils/func.js';
     const btn = document.getElementById("togglePass");
     const input = document.getElementById("password");
+    const emailTxt = document.getElementById('inputEmail').value;
     const eye = document.getElementById("eye");
     const blocked = document.getElementById("blocked");
 
@@ -96,6 +99,7 @@
       eye.classList.toggle("hidden");
       blocked.classList.toggle("hidden");
     });
+    document.getElementById('signBtn').addEventListener('click', ()=>{ func.login(emailTxt, input.value) })
   </script>
 
 </section>

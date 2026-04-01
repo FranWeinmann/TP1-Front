@@ -116,7 +116,7 @@
     <script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
     <script type="module">
         import * as func from  '../../utils/func.js';
-        let USERNAME = '';
+        let USERNAME = loadUser();
         let SAVED = 0;
         let passwordstxt = 'passwords';
         const passwordEl = document.getElementById('passwordGenerated');
@@ -197,7 +197,7 @@
                 console.log(err.message);
             }
         });
-        document.getElementById('userName').textContent=`Welcome Back, ${USERNAME}`;
+        document.getElementById('userName').textContent=USERNAME;
         document.getElementById('savedTxt').textContent=`${SAVED} ${passwordstxt} saved`;
         func.checkPassword(passwordEl.textContent, levelTxt, levelBar);
         func.updateSlider(slider, value, passwordEl, options, levelTxt, levelBar);

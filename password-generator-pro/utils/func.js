@@ -50,3 +50,36 @@ export function updateSlider(slideBar, barValue, passTxt, options, levelTxt, lev
         console.log(err.message);
     }
 }
+
+export async function loadUser() {
+    try {
+        const res = await fetch("/api/me");
+        const data = await res.json();
+
+        if (data.user) {
+            return `Welcome Back, ${data.user.full_name}`;
+        } else {
+            return "Welcome Back";
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function login(email, password) {
+    const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+        window.location.href='home';
+    } else {
+        console.log(data.error);
+    }
+}
