@@ -1,9 +1,11 @@
 @import "tailwindcss";
-.text-dark {
-  color: #31343a;
+.light {
+  background: #f8fafc;
+  color: #111;
 }
-.bglight{
-    background-color: #f7f9fa;
+.light header {
+  background: #ffffff;
+  border-color: #e5e7eb;
 }
 .borde{
     border: 0.1em solid #d2d3d3;
@@ -86,4 +88,35 @@
     justify-content: space-between;
     font-size: 0.75rem;
     color: #6b7280;
+}
+.light #firstDiv {
+  background: #d9ece3;
+}
+.light #title {
+  color: #111;
+}
+.light .bigBox {
+  background: #fafcfd;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  border-color: #d2d3d3;
+}
+.light input {
+  background: #fafcfd;
+  color: #111;
+  border-color: #d2d3d3;
+}
+.light label {
+  color: #111;
+}
+.light p {
+  color: #555;
+}
+.light #themeToggle {
+  background: #ebeff1;
+}
+.light .special:hover {
+  stroke: black;
+}
+.light .Body{
+    background: #f8fafc;
 }

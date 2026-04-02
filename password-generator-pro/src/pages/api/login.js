@@ -20,8 +20,8 @@ export async function POST({ request, cookies }) {
   cookies.set("user_id", user.id, {
     path: "/",
     httpOnly: true,
-    sameSite: "strict",
-    secure: true
+    sameSite: "lax",
+    secure: import.meta.env.PROD
   });
 
   return new Response(JSON.stringify({ ok: true }));

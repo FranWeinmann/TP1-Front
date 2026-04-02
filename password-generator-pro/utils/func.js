@@ -67,6 +67,10 @@ export async function loadUser() {
 }
 
 export async function login(email, password) {
+    if (!email || !password){
+        console.log("Completa todos los campos");
+        return;
+    }
     const res = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -81,5 +85,56 @@ export async function login(email, password) {
         window.location.href='home';
     } else {
         console.log(data.error);
+    }
+}
+
+export async function signup(full_name, email, password) {
+    const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ full_name, email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+        window.location.href='home';
+    } else {
+        console.log(data.error);
+    }
+}
+
+export async function savePassword(password) {
+    const res = await fetch("/api/passwords", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ password })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+        console.log("Guardado");
+    } else {
+        console.log(data.error);
+    }
+}
+
+export async function deletePassword(id) {
+    const res = await fetch("/api/passwords/delete", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id })
+    });
+
+    const data = await res.json();
+    if (data.ok) {
+        console.log("Eliminado");
     }
 }

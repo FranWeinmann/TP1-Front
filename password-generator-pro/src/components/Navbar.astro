@@ -41,23 +41,12 @@
     const circle = document.getElementById("circle");
     const sun = document.getElementById("sun");
     const moon = document.getElementById("moon");
-    const firstDiv = document.getElementById('firstDiv');
-    const title = document.getElementById('title');
-    const header = document.querySelector("header");
-    const section = document.querySelector('section');
-    const h1 = document.querySelector("h1");
 
     btn?.addEventListener("click", () => {
       sun.classList.toggle("hidden");
       moon.classList.toggle("hidden");
-      firstDiv.classList.toggle('bg-[#d9ece3]');
-      title.classList.toggle('text-dark');
-      header.classList.toggle("bglight");
-      section.classList.toggle('bglight');
-      header.classList.toggle("borde");
-      h1.classList.toggle("text-dark");
-      btn.classList.toggle("bg-[#ebeff1]");
       circle.classList.toggle("-translate-x-6");
+      document.documentElement.classList.toggle("light");
     });
   </script>
 
