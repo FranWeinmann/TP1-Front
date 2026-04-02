@@ -1,7 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcrypt';
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = neon(process.env.passwordapi_DATABASE_URL);
 
 export async function POST({ request }) {
   const { full_name, email, password } = await request.json();

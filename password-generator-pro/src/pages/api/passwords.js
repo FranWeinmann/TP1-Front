@@ -1,6 +1,6 @@
 import { neon } from '@neondatabase/serverless';
 
-const sql = neon(process.env.DATABASE_URL);
+const sql = neon(process.env.passwordapi_DATABASE_URL);
 
 export async function GET({ cookies }) {
   const userId = cookies.get("user_id")?.value;
